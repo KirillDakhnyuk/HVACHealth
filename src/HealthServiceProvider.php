@@ -11,7 +11,7 @@ class HealthServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/hvac-health.php' => config_path('hvac-health.php')
-        ], 'config');
+        ], 'hvac-health');
 
         $this->commands([
             RunHealthMonitorsCommand::class

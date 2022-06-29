@@ -31,5 +31,7 @@
         "spatie/enum": "^3.12",
         "spatie/regex": "^1.4",
         "symfony/process": "^5.4|^6.0"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
