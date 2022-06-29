@@ -47,8 +47,8 @@ class RunHealthMonitorsCommand extends Command
         $batch = \Str::uuid();
 
         $results
-            ->each(fn (Result $result) => DB::connection(config('hvac-health.database_connection'))
-            ->table('health_check_result_history_items')->insert([
+            ->each(fn (Result $result) => DB::connection(config('hvac-health.connection'))
+            ->table(config('hvac-health.table'))->insert([
                 'project' => config('hvac-health.project'),
                 'check_name' => $result->name,
                 'meta' => collect($result->meta),

@@ -2,5 +2,6 @@
 
 return [
     'project' => env('STATUS_PROJECT', ''),
-    'database_connection' => env('STATUS_CONNECTION', ''),
+    'connection' => env('STATUS_CONNECTION', ''),
+    'table' => env('STATUS_TABLE', ''),
 ];
