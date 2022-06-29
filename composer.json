@@ -1,0 +1,32 @@
+{
+    "name": "kirilldakhnyuk/hvac-health",
+    "autoload": {
+        "psr-4": {
+            "HvacHealth\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "HvacHealth\\HealthServiceProvider"
+            ],
+            "aliases": {
+                "Health": "HvacHealth\\Facades\\Health"
+            }
+        }
+    },
+    "authors": [
+        {
+            "name": "Kirill Dakhnyuk",
+            "email": "kirilldakhnyuk@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3",
+        "illuminate/console": "^7.2|^9.0",
+        "illuminate/contracts": "^7.2|^9.0",
+        "illuminate/database": "^7.2|^9.0",
+        "illuminate/notifications": "^7.2|^9.0",
+        "illuminate/support": "^7.2|^9.0"
+    }
+}
