@@ -1,10 +1,10 @@
 <?php
 
-namespace HVACHealth\Commands;
+namespace HvacHealth\Commands;
 
 use DB;
-use HVACHealth\Facades\Health;
-use HVACHealth\Monitors\Monitor;
+use HvacHealth\Facades\Health;
+use HvacHealth\Monitors\Monitor;
 use Illuminate\Console\Command;
 
 class RunHealthMonitorsCommand extends Command

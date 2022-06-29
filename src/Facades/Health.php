@@ -1,11 +1,11 @@
 <?php
 
-namespace HVACHealth\Facades;
+namespace HvacHealth\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \HVACHealth\Health
+ * @see \HvacHealth\Health
  */
 
 class Health extends Facade

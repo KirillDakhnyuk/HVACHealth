@@ -1,8 +1,8 @@
 <?php
 
-namespace HVACHealth;
+namespace HvacHealth;
 
-use HVACHealth\Commands\RunHealthMonitorsCommand;
+use HvacHealth\Commands\RunHealthMonitorsCommand;
 use Illuminate\Support\ServiceProvider;
 
 class HealthServiceProvider extends ServiceProvider

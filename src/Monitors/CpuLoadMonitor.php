@@ -1,6 +1,6 @@
 <?php
 
-namespace HVACHealth\Monitors;
+namespace HvacHealth\Monitors;
 
 class CpuLoadMonitor extends Monitor
 {
