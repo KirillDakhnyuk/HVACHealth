@@ -27,6 +27,7 @@
         "illuminate/contracts": "^7.2|^9.0",
         "illuminate/database": "^7.2|^9.0",
         "illuminate/notifications": "^7.2|^9.0",
-        "illuminate/support": "^7.2|^9.0"
+        "illuminate/support": "^7.2|^9.0",
+        "spatie/enum": "^3.12"
     }
 }

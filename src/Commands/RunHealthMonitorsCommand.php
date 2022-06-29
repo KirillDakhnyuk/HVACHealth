@@ -5,6 +5,7 @@ namespace HvacHealth\Commands;
 use DB;
 use HvacHealth\Facades\Health;
 use HvacHealth\Monitors\Monitor;
+use HvacHealth\Monitors\Result;
 use Illuminate\Console\Command;
 
 class RunHealthMonitorsCommand extends Command
@@ -35,7 +36,7 @@ class RunHealthMonitorsCommand extends Command
             $this->line("Running check: {$monitor->getLabel()}...");
             $result = $monitor->run();
         } catch (\Exception $exception) {
-            report($exception);
+            dd($exception);
         }
 
         return $result;
@@ -43,9 +44,17 @@ class RunHealthMonitorsCommand extends Command
 
     protected function storeResults($results): self
     {
-        $results->each(fn () => DB::connection('status')->table('health_check_result_history_items')->insert([
-            'check_name' => 'test'
-        ]));
+        $results
+            ->each(fn (Result $result) => DB::connection('status')->table('health_check_result_history_items')->insert([
+                'check_name' => $result->name,
+                'meta' => collect($result->meta),
+                'status' => $result->status->value,
+                'notification_message' => $result->notificationMessage,
+                'short_summary' => $result->shortSummary,
+                'ended_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]));
 
         return $this;
     }
