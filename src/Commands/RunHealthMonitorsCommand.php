@@ -44,6 +44,8 @@ class RunHealthMonitorsCommand extends Command
 
     protected function storeResults($results): self
     {
+        $batch = \Str::uuid();
+
         $results
             ->each(fn (Result $result) => DB::connection(config('hvac-health.database_connection'))
             ->table('health_check_result_history_items')->insert([
@@ -53,6 +55,7 @@ class RunHealthMonitorsCommand extends Command
                 'status' => $result->status->value,
                 'notification_message' => $result->notificationMessage,
                 'short_summary' => $result->shortSummary,
+                'batch' => $batch,
                 'ended_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now(),
