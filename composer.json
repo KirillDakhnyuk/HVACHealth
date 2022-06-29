@@ -28,6 +28,8 @@
         "illuminate/database": "^7.2|^9.0",
         "illuminate/notifications": "^7.2|^9.0",
         "illuminate/support": "^7.2|^9.0",
-        "spatie/enum": "^3.12"
+        "spatie/enum": "^3.12",
+        "spatie/regex": "^1.4",
+        "symfony/process": "^5.4|^6.0"
     }
 }
