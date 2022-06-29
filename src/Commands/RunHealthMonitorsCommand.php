@@ -36,7 +36,7 @@ class RunHealthMonitorsCommand extends Command
             $this->line("Running check: {$monitor->getLabel()}...");
             $result = $monitor->run();
         } catch (\Exception $exception) {
-            dd($exception);
+            logger($exception);
         }
 
         return $result;
@@ -45,7 +45,9 @@ class RunHealthMonitorsCommand extends Command
     protected function storeResults($results): self
     {
         $results
-            ->each(fn (Result $result) => DB::connection('status')->table('health_check_result_history_items')->insert([
+            ->each(fn (Result $result) => DB::connection(config('hvac-health.database_connection'))
+            ->table('health_check_result_history_items')->insert([
+                'project' => config('hvac-health.project'),
                 'check_name' => $result->name,
                 'meta' => collect($result->meta),
                 'status' => $result->status->value,
