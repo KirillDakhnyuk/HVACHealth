@@ -19,9 +19,11 @@ class RedisMonitor extends Monitor
 
     public function run(): Result
     {
-        $result = Result::make()->meta([
-            'connection_name' => $this->connectionName,
-        ]);
+        $result = Result::make()
+            ->name('Redis')
+            ->meta([
+                'connection_name' => $this->connectionName,
+            ]);
 
         try {
             $response = $this->pingRedis();
