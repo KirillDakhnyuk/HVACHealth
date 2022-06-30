@@ -15,17 +15,10 @@ class TwilioMonitor extends Monitor
     protected $interval = 'last hour';
     protected $undeliveredMax = 5;
 
-    public function __construct()
-    {
-        if (! $this->sid && $this->token) {
-            return null;
-        }
-
-        $this->twilio = new Client($this->sid, $this->token);
-    }
-
     public function run(): Result
     {
+        $this->createClient();
+
         $response = $this->twilio->messages->page([
             'from' => $this->from,
             'dateSentAfter' => Date::parse($this->interval, 'UTC')->toDateTimeString()
@@ -43,6 +36,15 @@ class TwilioMonitor extends Monitor
         }
 
         return $result->ok(trans('hvac-health::twilio.green', ['interval' => $this->interval]));
+    }
+
+    public function createClient()
+    {
+        if (! $this->sid && ! $this->token) {
+            return null;
+        }
+
+        $this->twilio = new Client($this->sid, $this->token);
     }
 
     public function sid($sid)
