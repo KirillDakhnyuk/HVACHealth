@@ -13,6 +13,12 @@ class HealthServiceProvider extends ServiceProvider
             __DIR__.'/../config/hvac-health.php' => config_path('hvac-health.php')
         ], 'hvac-health');
 
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'hvac-health');
+
+        $this->publishes([
+            __DIR__.'/../lang' => $this->app->langPath('vendor/hvac-health'),
+        ]);
+
         $this->commands([
             RunHealthMonitorsCommand::class
         ]);
