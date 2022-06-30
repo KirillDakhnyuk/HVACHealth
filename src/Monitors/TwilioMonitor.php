@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Monitors;
+namespace HvacHealth\Monitors;
 
 use HvacHealth\Monitors\Monitor;
 use HvacHealth\Monitors\Result;
