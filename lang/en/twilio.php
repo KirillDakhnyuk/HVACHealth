@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'red' => ':count sms undelivered in the last hour.',
+    'red' => ':count sms undelivered in the :interval.',
     'yellow' => '',
-    'green' => 'All SMS messages have been sent in the last hour.'
+    'green' => 'All SMS messages have been sent in the :interval.'
 ];

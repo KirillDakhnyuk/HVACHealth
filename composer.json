@@ -31,7 +31,7 @@
         "spatie/enum": "^3.12",
         "spatie/regex": "^1.4",
         "symfony/process": "^5.4|^6.0",
-        "twilio/sdk": "^6.38"
+        "twilio/sdk": "^5.4.2"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

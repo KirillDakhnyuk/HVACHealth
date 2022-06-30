@@ -36,7 +36,10 @@ class TwilioMonitor extends Monitor
         $result = Result::make()->name('Twilio');
 
         if ($undelivered->count() >= $this->undeliveredMax) {
-            return $result->failed(trans('hvac-health::twilio.red', ['count' => $undelivered->count()]));
+            return $result->failed(trans('hvac-health::twilio.red', [
+                'count' => $undelivered->count(),
+                'interval' => $this->interval
+            ]));
         }
 
         return $result->ok(trans('hvac-health::twilio.green'));
