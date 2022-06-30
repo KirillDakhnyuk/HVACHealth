@@ -42,7 +42,7 @@ class TwilioMonitor extends Monitor
             ]));
         }
 
-        return $result->ok(trans('hvac-health::twilio.green'));
+        return $result->ok(trans('hvac-health::twilio.green', ['interval' => $this->interval]));
     }
 
     public function sid($sid)
