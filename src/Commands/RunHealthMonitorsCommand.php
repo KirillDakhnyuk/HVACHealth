@@ -36,7 +36,8 @@ class RunHealthMonitorsCommand extends Command
             $this->line("Running check: {$monitor->getLabel()}...");
             $result = $monitor->run();
         } catch (\Exception $exception) {
-            logger($exception);
+            logger("The monitor named `{$monitor->getName()}` did not complete. An exception was thrown with this message: `".get_class($exception).": {$exception->getMessage()}`");
+            $result = $monitor->markAsCrashed();
         }
 
         return $result;

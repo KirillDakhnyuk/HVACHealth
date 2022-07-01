@@ -45,4 +45,9 @@ abstract class Monitor
 
         return \Str::of($baseName)->beforeLast('Check');
     }
+
+    public function markAsCrashed(): Result
+    {
+        return new Result(Status::crashed());
+    }
 }
