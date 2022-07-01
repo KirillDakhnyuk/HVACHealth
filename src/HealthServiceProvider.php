@@ -3,6 +3,7 @@
 namespace HvacHealth;
 
 use HvacHealth\Commands\RunHealthMonitorsCommand;
+use HvacHealth\Commands\ScheduleHeartbeatMonitorCommand;
 use Illuminate\Support\ServiceProvider;
 
 class HealthServiceProvider extends ServiceProvider
@@ -20,7 +21,8 @@ class HealthServiceProvider extends ServiceProvider
         ]);
 
         $this->commands([
-            RunHealthMonitorsCommand::class
+            RunHealthMonitorsCommand::class,
+            ScheduleHeartbeatMonitorCommand::class,
         ]);
     }
 

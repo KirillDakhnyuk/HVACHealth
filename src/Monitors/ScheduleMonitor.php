@@ -46,6 +46,7 @@ class ScheduleMonitor extends Monitor
     public function run(): Result
     {
         $result = Result::make()
+            ->name('Heartbeat')
             ->ok(trans('hvac-health::schedule.green'));
 
         $lastHeartbeatTimestamp = cache()->store($this->cacheStoreName)->get($this->cacheKey);
