@@ -17,7 +17,13 @@ class TwilioMonitor extends Monitor
 
     public function run(): Result
     {
-        $this->createClient();
+        $result = Result::make()->name('Twilio');
+
+        if (! $this->sid && ! $this->token) {
+            return $result->failed('Credentials are required.');
+        }
+
+        $this->twilio = new Client($this->sid, $this->token);
 
         $response = $this->twilio->messages->page([
             'from' => $this->from,
@@ -25,8 +31,6 @@ class TwilioMonitor extends Monitor
         ]);
 
         $undelivered = collect($response)->filter(fn ($message) => $message->status === 'undelivered');
-
-        $result = Result::make()->name('Twilio');
 
         if ($undelivered->count() >= $this->undeliveredMax) {
             return $result->failed(trans('hvac-health::twilio.red', [
@@ -36,15 +40,6 @@ class TwilioMonitor extends Monitor
         }
 
         return $result->ok(trans('hvac-health::twilio.green', ['interval' => $this->interval]));
-    }
-
-    public function createClient()
-    {
-        if (! $this->sid && ! $this->token) {
-            return null;
-        }
-
-        $this->twilio = new Client($this->sid, $this->token);
     }
 
     public function sid($sid)
