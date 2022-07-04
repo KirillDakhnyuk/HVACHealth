@@ -25,6 +25,13 @@ abstract class Monitor
         return $instance;
     }
 
+    public function name(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public function label(string $label): self
     {
         $this->label = $label;
