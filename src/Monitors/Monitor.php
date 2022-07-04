@@ -10,7 +10,9 @@ abstract class Monitor
 
     protected string $expression = '* * * * *';
 
-    protected string $label = 'test';
+    protected ?string $name = null;
+    
+    protected ?string $label = null;
 
     abstract public function run();
 
