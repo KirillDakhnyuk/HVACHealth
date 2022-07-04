@@ -34,7 +34,7 @@ class CpuLoadMonitor extends Monitor
         $cpuLoad = $this->measure();
 
         $result = Result::make()
-            ->ok()
+            ->ok('The CPU load is ok.')
             ->name('CPU load')
             ->shortSummary(
                 "{$cpuLoad['lastMinute']} {$cpuLoad['last5Minutes']} {$cpuLoad['last15Minutes']}"

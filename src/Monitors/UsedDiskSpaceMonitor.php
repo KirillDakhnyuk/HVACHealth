@@ -36,14 +36,14 @@ class UsedDiskSpaceMonitor extends Monitor
             ->shortSummary($diskSpaceUsedPercentage . '%');
 
         if ($diskSpaceUsedPercentage > $this->errorThreshold) {
-            return $result->failed("The disk is almost full ({$diskSpaceUsedPercentage}% used).");
+            return $result->failed(trans('hvac-health::disk.red'));
         }
 
         if ($diskSpaceUsedPercentage > $this->warningThreshold) {
-            return $result->warning("The disk is almost full ({$diskSpaceUsedPercentage}% used).");
+            return $result->warning(trans('hvac-health::disk.yellow'));
         }
 
-        return $result->ok();
+        return $result->ok(trans('hvac-health::disk.green'));
     }
 
     protected function getDiskUsagePercentage(): int

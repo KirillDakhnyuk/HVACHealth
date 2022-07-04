@@ -31,9 +31,9 @@ class DatabaseMonitor extends Monitor
         try {
             DB::connection($connectionName)->getPdo();
 
-            return $result->ok();
+            return $result->ok(trans('hvac-health::disk.green'));
         } catch (Exception $exception) {
-            return $result->failed("Could not connect to the database: `{$exception->getMessage()}`");
+            return $result->failed(trans('hvac-health::database.red'));
         }
     }
 
