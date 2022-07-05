@@ -10,10 +10,19 @@ class HealthServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        $langPath = '/../lang/vendor/hvac-health';
+        
+        $langPath = (function_exists('lang_path'))
+            ? lang_path($langPath)
+            : resource_path('lang/' . $langPath);
+        
         $this->publishes([
             __DIR__.'/../config/hvac-health.php' => config_path('hvac-health.php'),
-            __DIR__.'/../lang' => $this->app->langPath('vendor/hvac-health-lang'),
         ], 'hvac-health');
+        
+        $this->publishes([
+            __DIR__.('/../lang') => $langPath,
+        ], 'hvac-health-translations');
 
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'hvac-health');
 
