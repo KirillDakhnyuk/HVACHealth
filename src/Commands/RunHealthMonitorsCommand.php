@@ -3,6 +3,7 @@
 namespace HvacHealth\Commands;
 
 use DB;
+use HvacHealth\Events\MonitorStateChangedEvent;
 use HvacHealth\Facades\Health;
 use HvacHealth\Monitors\Monitor;
 use HvacHealth\Monitors\Result;
@@ -21,6 +22,8 @@ class RunHealthMonitorsCommand extends Command
         });
 
         $this->storeResults($results);
+        
+        event(new MonitorStateChangedEvent($results));
 
         $this->line('');
 
