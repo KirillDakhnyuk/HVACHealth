@@ -27,7 +27,7 @@ class RunHealthMonitorsCommand extends Command
 
         event(new MonitorStateChangedEvent($results));
 
-        if (config('hvac-health.emails.template')) {
+        if (config('hvac-health.project') && config('hvac-health.emails.template')) {
             $changedMonitors = $results->filter(function ($monitor) {
                 if ($monitor->status->value !== $this->getPreviousStatusOf($monitor)) {
                     return [
