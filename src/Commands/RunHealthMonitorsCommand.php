@@ -5,9 +5,11 @@ namespace HvacHealth\Commands;
 use DB;
 use HvacHealth\Events\MonitorStateChangedEvent;
 use HvacHealth\Facades\Health;
+use HvacHealth\Mail\MonitorStateChanged;
 use HvacHealth\Monitors\Monitor;
 use HvacHealth\Monitors\Result;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class RunHealthMonitorsCommand extends Command
 {
@@ -22,8 +24,26 @@ class RunHealthMonitorsCommand extends Command
         });
 
         $this->storeResults($results);
-        
+
         event(new MonitorStateChangedEvent($results));
+
+        if (config('hvac-health.emails.template')) {
+            $changedMonitors = $results->filter(function ($monitor) {
+                if ($monitor->status->value !== $this->getPreviousStatusOf($monitor)) {
+                    return [
+                        'name' => $monitor->name,
+                        'status' => $monitor->status->value,
+                    ];
+                }
+            });
+
+
+            if ($changedMonitors->isNotEmpty()) {
+                Health::registeredSubscribers()->each(function ($subscriber) use ($changedMonitors) {
+                    Mail::to($subscriber->email)->send(new MonitorStateChanged($changedMonitors));
+                });
+            }
+        }
 
         $this->line('');
 
@@ -66,5 +86,19 @@ class RunHealthMonitorsCommand extends Command
             ]));
 
         return $this;
+    }
+
+    public function getPreviousStatusOf($monitor)
+    {
+        $latest = DB::connection('status')->table(config('hvac-health.table'))
+            ->where([
+                'project' => config('hvac-health.project'),
+                'name' => $monitor->name,
+            ])
+            ->latest()
+            ->take(2)
+            ->get(['name', 'status']);
+
+        return $latest->last()->status;
     }
 }
