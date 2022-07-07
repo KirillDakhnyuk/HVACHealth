@@ -3,7 +3,7 @@
 namespace HvacHealth\Commands;
 
 use DB;
-use HvacHealth\Events\MonitorStateChangedEvent;
+use HvacHealth\Events\MonitorStateChanged;
 use HvacHealth\Facades\Health;
 use HvacHealth\Mail\MonitorStateChanged;
 use HvacHealth\Monitors\Monitor;
@@ -25,7 +25,7 @@ class RunHealthMonitorsCommand extends Command
 
         $this->storeResults($results);
 
-        event(new MonitorStateChangedEvent($results));
+        event(new MonitorStateChanged($results));
 
         if (config('hvac-health.emails.template')) {
             $changedMonitors = $results->filter(function ($monitor) {
