@@ -18,8 +18,15 @@ class Health
         return collect($this->monitors);
     }
 
-    public function resultStores()
+    public function subscribers(array $subscribers)
     {
-        return ResultStores::createFromConfig();
+        $this->subscribers = $subscribers;
+
+        return $this;
+    }
+
+    public function registeredSubscribers()
+    {
+        return collect($this->subscribers);
     }
 }
