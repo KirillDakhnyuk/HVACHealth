@@ -2,7 +2,7 @@
 
 namespace HvacHealth\Events;
 
-class MonitorStateChanged
+class MonitorStateChangedEvent
 {
     public $results;
 
