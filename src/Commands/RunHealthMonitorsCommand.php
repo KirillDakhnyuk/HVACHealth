@@ -74,6 +74,7 @@ class RunHealthMonitorsCommand extends Command
             ->each(fn (Result $result) => DB::connection(config('hvac-health.connection'))
             ->table(config('hvac-health.table'))->insert([
                 'project' => config('hvac-health.project'),
+                'branch' => config('hvac-health.branch'),
                 'name' => $result->name,
                 'meta' => collect($result->meta),
                 'status' => $result->status->value,
