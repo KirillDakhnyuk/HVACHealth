@@ -2,14 +2,8 @@
 
 namespace HvacHealth\Monitors;
 
-use Illuminate\Console\Scheduling\ManagesFrequencies;
-
 abstract class Monitor
 {
-    use ManagesFrequencies;
-
-    protected string $expression = '* * * * *';
-
     protected ?string $name = null;
     
     protected ?string $label = null;
@@ -19,8 +13,6 @@ abstract class Monitor
     public static function new()
     {
         $instance = new static();
-
-        $instance->everyMinute();
 
         return $instance;
     }
