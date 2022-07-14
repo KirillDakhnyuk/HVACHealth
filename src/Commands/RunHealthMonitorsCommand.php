@@ -39,7 +39,14 @@ class RunHealthMonitorsCommand extends Command
 
 
             if ($changedMonitors->isNotEmpty()) {
-                Health::registeredSubscribers()->each(function ($subscriber) use ($changedMonitors) {
+                $subscribers = DB::connection(config('hvac-health.connection'))
+                    ->table('subscribed_to_updates')
+                    ->where([
+                        'project' => config('hvac-health.project')
+                    ])
+                    ->get('email');
+
+                $subscribers->each(function ($subscriber) use ($changedMonitors) {
                     Mail::to($subscriber->email)->send(new MonitorStateChanged($changedMonitors));
                 });
             }
