@@ -20,7 +20,7 @@ class RedisMonitor extends Monitor
     public function run(): Result
     {
         $result = Result::make()
-            ->name('Redis')
+            ->name('Queue')
             ->meta([
                 'connection_name' => $this->connectionName,
             ]);
@@ -28,11 +28,11 @@ class RedisMonitor extends Monitor
         try {
             $response = $this->pingRedis();
         } catch (Exception $exception) {
-            return $result->failed("An exception occurred when connecting to Redis: `{$exception->getMessage()}`");
+            return $result->failed("An exception occurred when connecting to the queue processor: `{$exception->getMessage()}`");
         }
 
         if ($response === false) {
-            return $result->failed("Redis returned a falsy response when try to connection to it.");
+            return $result->failed("The queue could not be reached.");
         }
 
         return $result->ok();

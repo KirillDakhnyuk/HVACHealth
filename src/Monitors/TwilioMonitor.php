@@ -17,7 +17,7 @@ class TwilioMonitor extends Monitor
 
     public function run(): Result
     {
-        $result = Result::make()->name('Twilio');
+        $result = Result::make()->name('Messaging');
 
         if (! $this->sid && ! $this->token) {
             return $result->failed('Credentials are required.');

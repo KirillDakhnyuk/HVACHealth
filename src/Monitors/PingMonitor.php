@@ -10,7 +10,7 @@ use HvacHealth\Monitors\Result;
 
 class PingMonitor extends Monitor
 {
-    public ?string $name = 'Ping';
+    public ?string $name = 'Power Status';
     public ?string $url = null;
     public ?string $failureMessage = null;
     public int $timeout = 1;
@@ -69,7 +69,7 @@ class PingMonitor extends Monitor
         return Result::make()
             ->name($this->name)
             ->ok()
-            ->shortSummary('reachable');
+            ->shortSummary('Server(s) are accessible.');
     }
 
     protected function failedResult(): Result
@@ -77,7 +77,7 @@ class PingMonitor extends Monitor
         return Result::make()
             ->name($this->name)
             ->failed()
-            ->shortSummary('unreachable')
-            ->notificationMessage($this->failureMessage ?? "Pinging {$this->getName()} failed.");
+            ->shortSummary('Server(s) are unreachable.')
+            ->notificationMessage($this->failureMessage ?? "A server could not be reached.");
     }
 }

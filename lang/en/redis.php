@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'red' => 'Redis is not processing jobs.',
+    'red' => 'Queued workers are stalled.',
     'yellow' => '',
-    'green' => 'Redis is processing jobs.'
+    'green' => 'Operating normally.'
 ];

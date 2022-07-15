@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'red' => ':count sms undelivered in the :interval.',
+    'red' => 'Degraded performance detected, :count undelivered messaged in the :interval.',
     'yellow' => '',
-    'green' => 'All SMS messages have been sent in the :interval.'
+    'green' => 'Operating normally over the :interval.'
 ];

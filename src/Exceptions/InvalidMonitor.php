@@ -14,13 +14,13 @@ class InvalidMonitor extends Exception
         $extraMessage = '';
 
         if (is_string($invalidValue)) {
-            $extraMessage = " You tried to register a string `{$invalidValue}`";
+            $extraMessage = " Invalid string value: `{$invalidValue}`";
         }
 
         if (is_object($invalidValue)) {
             $invalidClass = get_class($invalidValue);
 
-            $extraMessage = " You tried to register class `{$invalidClass}`";
+            $extraMessage = " Invalid class: `{$invalidClass}`";
         }
 
         return new self(
