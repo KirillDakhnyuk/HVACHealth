@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'red' => 'MySQL connections are failing.',
+    'red' => 'Unstable connections detected.',
     'yellow' => '',
-    'green' => 'MySQL connections are open.'
+    'green' => 'Operating normally.'
 ];

@@ -31,7 +31,7 @@ class UsedDiskSpaceMonitor extends Monitor
         $diskSpaceUsedPercentage = $this->getDiskUsagePercentage();
 
         $result = Result::make()
-            ->name('Used disk space')
+            ->name('Disk Status')
             ->meta(['disk_space_used_percentage' => $diskSpaceUsedPercentage])
             ->shortSummary($diskSpaceUsedPercentage . '%');
 
