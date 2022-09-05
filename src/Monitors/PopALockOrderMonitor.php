@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Date;
 
 class PopALockOrderMonitor extends Monitor
 {
-    public ?string $name = 'Pop-A-Lock order';
+    public ?string $name = 'Pop-A-Lock Order';
 
     public function run(): Result
     {
-        $result = Result::make();
+        $result = Result::make()->name($this->name);
 
         $latest = Date::parse(PopALock::getLatestOrderCreatedAt());
 
