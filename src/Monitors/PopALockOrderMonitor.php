@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Date;
 
 class PopALockOrderMonitor extends Monitor
 {
-    public $name = 'Pop-A-Lock order';
+    public ?string $name = 'Pop-A-Lock order';
 
     public function run(): Result
     {
