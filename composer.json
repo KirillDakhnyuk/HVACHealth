@@ -2,7 +2,8 @@
     "name": "kirilldakhnyuk/hvac-health",
     "autoload": {
         "psr-4": {
-            "HvacHealth\\": "src/"
+            "HvacHealth\\": "src/",
+            "HvacHealth\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -34,5 +35,15 @@
         "twilio/sdk": "^5.4.2|^6.20"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "pestphp/pest": "^1.22",
+        "pestphp/pest-plugin-mock": "^1.0",
+        "orchestra/testbench": "^7.7"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
 }

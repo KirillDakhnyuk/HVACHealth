@@ -34,7 +34,9 @@ class HealthServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton(Health::class, fn () => new Health());
+        $this->app->singleton(Health::class, function () {
+            return new Health();
+        });
         $this->app->bind('health', Health::class);
     }
 }
