@@ -7,6 +7,7 @@ class Result
     public Monitor $monitor;
     public Status $status;
     public string $name;
+    public string $type;
     public string $shortSummary;
     public string $notificationMessage;
     public array $meta = [];
@@ -31,6 +32,13 @@ class Result
     public function name(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function type(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

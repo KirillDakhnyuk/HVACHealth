@@ -4,6 +4,8 @@ namespace HvacHealth\Monitors;
 
 class CpuLoadMonitor extends Monitor
 {
+    public ?string $name = 'Server Processing';
+    public ?string $type = 'ping';
     protected ?float $failWhenLoadIsHigherInTheLastMinute = null;
     protected ?float $failWhenLoadIsHigherInTheLast5Minutes = null;
     protected ?float $failWhenLoadIsHigherInTheLast15Minutes = null;
@@ -35,7 +37,8 @@ class CpuLoadMonitor extends Monitor
 
         $result = Result::make()
             ->ok('Operating normally')
-            ->name('Server Processing')
+            ->name($this->name)
+            ->type($this->type)
             ->shortSummary(
                 "{$cpuLoad['lastMinute']} {$cpuLoad['last5Minutes']} {$cpuLoad['last15Minutes']}"
             )

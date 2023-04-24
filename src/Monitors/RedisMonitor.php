@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Redis;
 
 class RedisMonitor extends Monitor
 {
+    public ?string $name = 'Background Processes';
+    public ?string $type = 'queue';
     protected string $connectionName = 'default';
 
     public function connectionName(string $connectionName): self
@@ -20,7 +22,8 @@ class RedisMonitor extends Monitor
     public function run(): Result
     {
         $result = Result::make()
-            ->name('Queue')
+            ->name($this->name)
+            ->type($this->type)
             ->meta([
                 'connection_name' => $this->connectionName,
             ]);

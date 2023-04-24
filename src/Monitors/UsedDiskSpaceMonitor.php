@@ -9,6 +9,8 @@ use Symfony\Component\Process\Process;
 
 class UsedDiskSpaceMonitor extends Monitor
 {
+    public ?string $name = 'Disk Status';
+    public ?string $type = 'used_disk_space';
     protected int $warningThreshold = 70;
     protected int $errorThreshold = 90;
 
@@ -31,7 +33,8 @@ class UsedDiskSpaceMonitor extends Monitor
         $diskSpaceUsedPercentage = $this->getDiskUsagePercentage();
 
         $result = Result::make()
-            ->name('Disk Status')
+            ->name($this->name)
+            ->type($this->type)
             ->meta(['disk_space_used_percentage' => $diskSpaceUsedPercentage])
             ->shortSummary($diskSpaceUsedPercentage . '%');
 

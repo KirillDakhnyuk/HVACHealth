@@ -11,6 +11,7 @@ use HvacHealth\Monitors\Result;
 class PingMonitor extends Monitor
 {
     public ?string $name = 'Power Status';
+    public ?string $type = 'ping';
     public ?string $url = null;
     public ?string $failureMessage = null;
     public int $timeout = 1;
@@ -68,6 +69,7 @@ class PingMonitor extends Monitor
 
         return Result::make()
             ->name($this->name)
+            ->type($this->type)
             ->ok()
             ->shortSummary('Server(s) are accessible.');
     }

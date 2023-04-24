@@ -6,6 +6,8 @@ use Carbon\Carbon;
 
 class ScheduleMonitor extends Monitor
 {
+    public ?string $name = 'Scheduled Commands';
+    public ?string $type = 'schedule';
     protected string $cacheKey = 'health.monitor.schedule.latestHeartbeatAt';
 
     protected ?string $cacheStoreName = null;
@@ -46,7 +48,8 @@ class ScheduleMonitor extends Monitor
     public function run(): Result
     {
         $result = Result::make()
-            ->name('Scheduled Commands')
+            ->name($this->name)
+            ->type($this->type)
             ->ok(trans('hvac-health::schedule.green'));
 
         $lastHeartbeatTimestamp = cache()->store($this->cacheStoreName)->get($this->cacheKey);

@@ -9,6 +9,8 @@ use Twilio\Rest\Client;
 
 class TwilioMonitor extends Monitor
 {
+    public ?string $name = 'Messaging';
+    public ?string $type = 'twilio';
     protected $sid;
     protected $token;
     protected $twilio;
@@ -17,7 +19,7 @@ class TwilioMonitor extends Monitor
 
     public function run(): Result
     {
-        $result = Result::make()->name('Messaging');
+        $result = Result::make()->name($this->name)->type($this->type);
 
         if (! $this->sid && ! $this->token) {
             return $result->failed('Credentials are required.');

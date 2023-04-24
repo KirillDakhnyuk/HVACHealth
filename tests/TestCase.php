@@ -16,11 +16,4 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
         app()->bind(PopALockContract::class, PopALock::class);
     }
-
-//    protected function getPackageProviders($app)
-//    {
-//        return [
-//            HealthServiceProvider::class,
-//        ];
-//    }
 }

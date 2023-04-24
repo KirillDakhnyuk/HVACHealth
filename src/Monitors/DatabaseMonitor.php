@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 class DatabaseMonitor extends Monitor
 {
+    public ?string $name = 'Database';
+    public ?string $type = 'database';
     protected ?string $connectionName = null;
 
     public function connectionName(string $connectionName): self
@@ -23,7 +25,8 @@ class DatabaseMonitor extends Monitor
         $connectionName = $this->connectionName ?? $this->getDefaultConnectionName();
 
         $result = Result::make()
-            ->name('Database')
+            ->name($this->name)
+            ->type($this->type)
             ->meta([
                 'connection_name' => $connectionName,
             ]);

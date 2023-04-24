@@ -2,13 +2,13 @@
 
 namespace HvacHealth\Commands;
 
-use DB;
 use HvacHealth\Events\MonitorStateChangedEvent;
 use HvacHealth\Facades\Health;
 use HvacHealth\Mail\MonitorStateChanged;
 use HvacHealth\Monitors\Monitor;
 use HvacHealth\Monitors\Result;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class RunHealthMonitorsCommand extends Command
@@ -44,10 +44,15 @@ class RunHealthMonitorsCommand extends Command
                     ->where([
                         'project' => config('hvac-health.project')
                     ])
-                    ->get('email');
+                    ->get();
 
                 $subscribers->each(function ($subscriber) use ($changedMonitors) {
-                    Mail::to($subscriber->email)->send(new MonitorStateChanged($changedMonitors));
+                    $subscribedToMonitors = DB::connection(config('hvac-health.connection'))
+                        ->table('monitor_user')
+                        ->where('subscriber_id', $subscriber->id)
+                        ->pluck('type');
+
+                    Mail::to($subscriber->email)->send(new MonitorStateChanged($changedMonitors->whereIn('type', $subscribedToMonitors)));
                 });
             }
         }
@@ -75,7 +80,7 @@ class RunHealthMonitorsCommand extends Command
 
     protected function storeResults($results): self
     {
-        $batch = \Str::uuid();
+        $batch = str()->uuid();
 
         $results
             ->each(fn (Result $result) => DB::connection(config('hvac-health.connection'))
@@ -83,6 +88,7 @@ class RunHealthMonitorsCommand extends Command
                 'project' => config('hvac-health.project'),
                 'branch' => config('hvac-health.branch'),
                 'name' => $result->name,
+                'type' => $result->type,
                 'meta' => collect($result->meta),
                 'status' => $result->status->value,
                 'notification_message' => $result->notificationMessage,
