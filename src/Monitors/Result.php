@@ -21,12 +21,14 @@ class Result
         Status $status,
         string $notificationMessage = '',
         string $shortSummary = '',
-        string $name = ''
+        string $name = '',
+        string $type = ''
     ) {
         $this->status = $status;
         $this->notificationMessage = $notificationMessage;
         $this->shortSummary = $shortSummary;
         $this->name = $name;
+        $this->type = $type;
     }
 
     public function name(string $name): self

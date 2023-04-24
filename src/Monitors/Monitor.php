@@ -5,6 +5,8 @@ namespace HvacHealth\Monitors;
 abstract class Monitor
 {
     protected ?string $name = null;
+
+    protected ?string $type = null;
     
     protected ?string $label = null;
 
@@ -20,6 +22,13 @@ abstract class Monitor
     public function name(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function type(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
