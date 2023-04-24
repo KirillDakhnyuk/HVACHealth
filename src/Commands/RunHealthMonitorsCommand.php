@@ -48,11 +48,14 @@ class RunHealthMonitorsCommand extends Command
 
                 $subscribers->each(function ($subscriber) use ($changedMonitors) {
                     $subscribedToMonitors = DB::connection(config('hvac-health.connection'))
-                        ->table('monitor_user')
+                        ->table('monitor_subscriber')
                         ->where('subscriber_id', $subscriber->id)
                         ->pluck('type');
 
-                    Mail::to($subscriber->email)->send(new MonitorStateChanged($changedMonitors->whereIn('type', $subscribedToMonitors)));
+                    Mail::to($subscriber->email)->send(new MonitorStateChanged(
+                        $changedMonitors->whereIn('type', $subscribedToMonitors),
+                        config('hvac-health.app_url') . '/unsubscribe/' . base64_encode(collect(['subscriber_id' => $subscriber->id])))
+                    );
                 });
             }
         }

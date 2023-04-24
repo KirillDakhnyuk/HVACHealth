@@ -6,11 +6,10 @@ use Illuminate\Mail\Mailable;
 
 class MonitorStateChanged extends Mailable
 {
-    protected $results;
 
-    public function __construct($results)
+    public function __construct(protected $results, protected $unsubscribeLink)
     {
-        $this->results = $results;
+        //
     }
 
     public function build()
@@ -21,6 +20,7 @@ class MonitorStateChanged extends Mailable
             ->view(config('hvac-health.emails.template'), [
                 'project' => config('hvac-health.project'),
                 'monitors' => $this->results,
+                'unsubscribeLink' => $this->unsubscribeLink
             ]);
     }
 }
