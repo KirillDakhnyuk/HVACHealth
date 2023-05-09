@@ -53,9 +53,13 @@ class RunHealthMonitorsCommand extends Command
                         ->pluck('type');
 
                     if ($monitors = $changedMonitors->whereIn('type', $subscribedToMonitors)) {
-                        Mail::to($subscriber->email)->send(new MonitorStateChanged(
-                            $monitors,
-                            config('hvac-health.app_url') .'/unsubscribe/' . base64_encode(collect(['subscriber_id' => $subscriber->id])))
+                        Mail::to($subscriber->email)->send(
+                            new MonitorStateChanged(
+                                $monitors,
+                                config('hvac-health.app_url') .'/unsubscribe/' . base64_encode(collect([
+                                    'subscriber_id' => $subscriber->id
+                                ]))
+                            )
                         );
                     }
                 });
